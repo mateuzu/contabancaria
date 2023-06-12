@@ -1,5 +1,7 @@
 package conta.model;
 
+import conta.util.Cores;
+
 public class ContaCorrente extends Conta {
 
 	private float limite;
@@ -21,7 +23,7 @@ public class ContaCorrente extends Conta {
 	public boolean sacar(float valor) {
 
 		if (this.getSaldo() + this.getLimite() < valor) {
-			System.out.println("\n Saldo insuficiente!");
+			System.out.println(Cores.TEXT_RED_BOLD_BRIGHT + "\n Saldo insuficiente!" + Cores.TEXT_RESET);
 			return false;
 		}
 

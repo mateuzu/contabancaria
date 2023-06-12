@@ -15,9 +15,9 @@ public class Menu {
 	
 		ContaController contas = new ContaController();
 		Scanner sc = new Scanner(System.in);
-		int opcao, numero, agencia, tipo, aniversario;
+		int opcao, numero, agencia, tipo, aniversario, numeroDestino;
 		String titular;
-		float saldo, limite;
+		float saldo, limite, valor;
 		
 		System.out.println("\nCriar Contas\n");
 		
@@ -66,7 +66,7 @@ public class Menu {
 			}
 
 			if (opcao == 9) {
-				System.out.println(Cores.TEXT_WHITE_BOLD + "\nBanco do Brasil com Z - O seu futuro começa aqui!");
+				System.out.println(Cores.TEXT_YELLOW_BOLD + Cores.ANSI_BLACK_BACKGROUND + "\nBanco do Brasil com Z - O seu futuro começa aqui!" + Cores.TEXT_RESET);
 				sc.close();
 				System.exit(0);
 			}
@@ -85,7 +85,7 @@ public class Menu {
 					tipo = sc.nextInt();
 				}while(tipo < 1 && tipo > 2);
 				
-				System.out.println("Digite o saldo da conta: R$ ");
+				System.out.print("Digite o saldo da conta: R$ ");
 				saldo = sc.nextFloat();
 				switch(tipo) {
 					case 1 -> {
@@ -167,18 +167,54 @@ public class Menu {
 				break;
 			case 6:
 				System.out.println(Cores.TEXT_WHITE_BOLD + "Saque \n\n");
+				
+				System.out.print("Digite o número da conta: ");
+				numero = sc.nextInt();
+				
+				do {
+					System.out.print("Digite o valor do saque: R$ ");
+					valor = sc.nextFloat();
+				} while(valor <= 0);
+				
+				contas.sacar(numero, valor);
+				
 				keyPress();
 				break;
 			case 7:
 				System.out.println(Cores.TEXT_WHITE_BOLD + "Depósito \n\n");
+				
+				System.out.print("Digite o número da conta: ");
+				numero = sc.nextInt();
+				
+				do {
+					System.out.print("Digite o valor do depósito: R$ ");
+					valor = sc.nextFloat();
+				}while(valor <= 0);
+				
+				contas.depositar(numero, valor);
+				
 				keyPress();
 				break;
 			case 8:
 				System.out.println(Cores.TEXT_WHITE_BOLD + "Transferência entre contas \n\n");
+				
+				System.out.print("Digite o número da conta de origem: ");
+				numero = sc.nextInt();
+				System.out.print("Digite o número da conta de destino: ");
+				numeroDestino = sc.nextInt();
+				
+				do {
+					System.out.print("Digite o valor da Transferência: R$");
+					valor = sc.nextFloat();
+				} while(valor <= 0);
+				
+				contas.transferir(numero, numeroDestino, valor);
+				
 				keyPress();
 				break;
 			default:
 				System.out.println(Cores.TEXT_RED_BOLD + "Opção inválida \n\n");
+				
 				keyPress();
 				break;
 			}
